@@ -1,5 +1,5 @@
 async function register(event) {
-  event.preventDefault(); // منع إعادة تحميل الصفحة
+  event.preventDefault();
 
   const firstName = document.getElementById("firstName").value;
   const lastName = document.getElementById("lastName").value;
