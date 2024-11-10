@@ -18,7 +18,7 @@ function displayAllPosts() {
                           allPosts[i].gender === 1 ? "man" : "woman"
                         }.jpg" width="60" class="mr-3" alt="...">
                         <div class="media-body">
-                            <h5 class="mt-0">${allPosts[i].name}</h5>
+                            <h5 class="mt-0">${allPosts[i].username}</h5>
                          ${moment(new Date(allPosts[i].createdAt).getTime())}
                         </div>
                     </div>
@@ -47,7 +47,7 @@ document.getElementById("submitPostButton").addEventListener("click", () => {
     body: JSON.stringify({
       title: title,
       description: description,
-      user_id: "1",
+      user_id: localStorage.getItem("userId"),
     }),
   })
     .then((response) => response.json())

@@ -3,7 +3,7 @@ import { dbConnection } from "../../database/dbConnection.js";
 const connect = dbConnection();
 const allPosts = (req, res) => {
   connect.query(
-    "   SELECT posts.*, users.name ,users.gender  FROM posts  INNER JOIN users ON posts.user_id = users.id",
+    "   SELECT posts.*, users.username ,users.gender  FROM posts  INNER JOIN users ON posts.user_id = users.id",
     (err, results) => {
       if (err) {
         return res.status(500).json({ message: "Database error", error: err });
@@ -16,16 +16,40 @@ const allPosts = (req, res) => {
 const userPosts = (req, res) => {
   const userId = req.params.id;
   connect.query(
-    "SELECT * FROM posts WHERE user_id = ?",
+    `SELECT posts.*, users.username, users.gender, users.cover,users.profile, users.bio 
+     FROM posts
+     INNER JOIN users ON posts.user_id = users.id
+     WHERE posts.user_id = ?`,
     [userId],
     (err, results) => {
       if (err) {
         return res.status(500).json({ message: "Database error", error: err });
       }
-      res.status(201).json({ posts: results });
+
+      const user =
+        results.length > 0
+          ? {
+              username: results[0].username,
+              gender: results[0].gender,
+              cover_image: results[0].cover,
+              bio: results[0].bio,
+              profile: results[0].profile,
+            }
+          : null;
+
+      res.status(201).json({
+        user,
+        posts: results.map((post) => ({
+          id: post.id,
+          title: post.title,
+          description: post.description,
+          createdAt: post.createdAt,
+        })),
+      });
     }
   );
 };
+
 const updatePost = (req, res) => {
   const postId = req.params.id;
   const { title, description } = req.body;

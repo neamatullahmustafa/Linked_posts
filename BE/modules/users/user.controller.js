@@ -5,15 +5,21 @@ const connect = dbConnection();
 const register = (req, res) => {
   const hashedPassword = bcrypt.hashSync(req.body.password, 10);
   connect.query(
-    "INSERT INTO users (name, email, password) VALUES (?, ?, ?)",
-    [req.body.name, req.body.email, hashedPassword],
+    "INSERT INTO users (name, email, password ,username,gender) ) VALUES (?, ?, ?,?,?)",
+    [
+      req.body.name,
+      req.body.email,
+      hashedPassword,
+      req.body.username,
+      req.body.gender,
+    ],
     (err, result) => {
       if (err) {
         return res.status(500).json({ message: "Database error", error: err });
       }
       res.status(201).json({
         message: "User registered successfully",
-        user: { id: result.insertId, email: req.body.email },
+        user: { id: result.insertId },
       });
     }
   );
@@ -38,7 +44,7 @@ const logIn = (req, res) => {
           //   const token = createToken(result[0].id, result[0].email);
           res
             .status(200)
-            .json({ message: "Logged in successfully", user: result[0].email });
+            .json({ message: "Logged in successfully", id: result[0].id });
         } else {
           return res.status(401).json({ message: "Invalid password" });
         }

@@ -12,30 +12,30 @@
 
 <body id="login">
 
-    <div class="overlay">
+    <di class="overlay">
         <!-- ======================login form================================= -->
-
         <div class="container pt-5">
             <div class="row">
                 <div class="col-md-6 m-auto p-5">
                     <div class="form p-5 ">
                         <h2 class="text-center text-white">Sign In</h2>
-
-                        <form action="home.html">
-                            <input placeholder="Email" type="email" class="form-control my-4 inp" type="text">
-                            <input placeholder="Password" type="password" class="form-control my-4 inp" type="text">
-                            <button class="btn btn-outline-info w-100 text-white">Login</button>
+                        <form id="loginForm" onsubmit="login(event)">
+                            <input id="email" placeholder="Email" type="email" class="form-control my-4 inp">
+                            <input id="password" placeholder="Password" type="password" class="form-control my-4 inp">
+                            <button type="submit" class="btn btn-outline-info w-100 text-white">Login</button>
                             <p class="text-center text-white pt-3">
                                 Don't Have an account..? <a href="registration.html" class="text-white">Sign Up Here</a>
                             </p>
                             <p class="text-center text-white pt-3">
                                 <a href="forgetpassword.html" class="text-white">forget password ?</a>
                             </p>
+                            <p id="message" class="text-center text-danger pt-3"></p>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+    
 
 
     </div>
@@ -58,7 +58,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
